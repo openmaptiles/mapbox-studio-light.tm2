@@ -20,7 +20,7 @@ layers: null
 maxzoom: 22
 minzoom: 0
 name: Mapbox Light
-source: "mapbox:///mapbox.mapbox-streets-v6"
+source: "http://openmaptiles.org/cdn.json"
 styles: 
   - style.mss
   - labels.mss

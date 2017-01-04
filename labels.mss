@@ -1,6 +1,6 @@
 // Country labels //
-#country_label[zoom>=2][zoom<=10] {
-  text-name: @name;
+#place[class='country'][zoom>=2][zoom<=10] {
+  text-name: '[name_en]';
   text-face-name: @sans_bold;
   text-placement: point;
   text-size: 10;
@@ -11,20 +11,20 @@
   text-wrap-width: 20;
   text-wrap-before: true;
   text-line-spacing: -3;
-  [scalerank=1] {
+  [rank=1] {
     [zoom=3]  { text-size: 12; text-wrap-width: 60; }
     [zoom=4]  { text-size: 14; text-wrap-width: 90; }
     [zoom=5]  { text-size: 20; text-wrap-width: 120; }
     [zoom>=6] { text-size: 20; text-wrap-width: 120; }
   }
-  [scalerank=2] {
+  [rank=2] {
     [zoom=2]  { text-name: [code]; }
     [zoom=3]  { text-size: 11; }
     [zoom=4]  { text-size: 13; }
     [zoom=5]  { text-size: 17; }
     [zoom>=6] { text-size: 20; }
   }
-  [scalerank=3] {
+  [rank=3] {
     [zoom=3]  { text-name: [code]; }
     [zoom=4]  { text-size: 11; }
     [zoom=5]  { text-size: 15; }
@@ -32,21 +32,21 @@
     [zoom=7]  { text-size: 18; text-wrap-width: 60; }
     [zoom>=8] { text-size: 20; text-wrap-width: 120; }
   }
-  [scalerank=4] {
+  [rank=4] {
     [zoom=5] { text-size: 13; }
     [zoom=6] { text-size: 15; text-wrap-width: 60  }
     [zoom=7] { text-size: 16; text-wrap-width: 90; }
     [zoom=8] { text-size: 18; text-wrap-width: 120; }
     [zoom>=9] { text-size: 20; text-wrap-width: 120; }
   }
-  [scalerank=5] {
+  [rank=5] {
     [zoom=5] { text-size: 11; }
     [zoom=6] { text-size: 13; }
     [zoom=7] { text-size: 14; text-wrap-width: 60; }
     [zoom=8] { text-size: 16; text-wrap-width: 90; }
     [zoom>=9] { text-size: 18; text-wrap-width: 120; }
   }
-  [scalerank>=6] {
+  [rank>=6] {
     [zoom=7] { text-size: 12; }
     [zoom=8] { text-size: 14; }
     [zoom>=9] { text-size: 16; }
@@ -54,8 +54,8 @@
 }
 
 // State labels //
-#state_label[zoom>=4][zoom<=10] {
-  text-name: [abbr];
+#place[class='state'][zoom>=4][zoom<=10] {
+  text-name: [name_en];
   text-face-name: @sans;
   text-placement: point;
   text-fill: @fill2;
@@ -63,18 +63,7 @@
   text-halo-radius: 1;
   text-halo-rasterizer: fast;
   text-size: 10;
-  [zoom>=4][area>100000],
-  [zoom>=5][area>50000],
-  [zoom>=6][area>10000],
-  [zoom>=7][area<=10000] {
-    text-name: [abbr];
-  }
-  [zoom>=5][area>100000],
-  [zoom>=6][area>50000],
-  [zoom>=7][area>10000],
-  [zoom>=8][area<=10000] {
-    text-name: @name;
-  }
+
   [zoom>=5][zoom<=6] {
     [area>10000] { text-size: 12; }
     [area>50000] { text-size: 14; }
@@ -96,9 +85,9 @@
 }
 
 // Display capital cities alongside stars.
-#place_label::capitals[type='city'][capital=2][zoom<9] { 
+#place::capitals[class='city'][capital=2][zoom<9] { 
   shield-file: url("star.svg");
-  shield-name: @name;
+  shield-name: '[name_en]';
   shield-face-name: @sans;
   shield-size: 12;
   shield-fill: @text;
@@ -107,22 +96,13 @@
   shield-unlock-image: true;
   shield-wrap-width: 80;
   shield-line-spacing: -2;
-  // Fine-tune label positioning.
-  [ldir='E'] { shield-text-dx: 6; }
-  [ldir='W'] { shield-text-dx: -6; }
-  [ldir='N'] { shield-text-dy: -5; }
-  [ldir='S'] { shield-text-dy: 6; }
-  [ldir='NE'] { shield-text-dx: 3; shield-text-dy: -3; }
-  [ldir='SE'] { shield-text-dx: 3; shield-text-dy: 3; }
-  [ldir='SW'] { shield-text-dx: -3; shield-text-dy: 3; }
-  [ldir='NW'] { shield-text-dx: -3; shield-text-dy: -3; }
 
   [zoom>=6] { shield-size: 16; } 
 }
 
 // Display low zoom cities alongside points.
-#place_label[type='city'][localrank=1][zoom>=4][zoom<9] {
-  shield-name: @name;
+#place[class='city'][rank<=4][zoom>=4][zoom<9] {
+  shield-name: '[name_en]';
   shield-face-name: @sans;
   shield-size: 12;
   shield-fill: @text;
@@ -133,26 +113,16 @@
   shield-wrap-width: 80;
   shield-line-spacing: -2;
 
-  // Fine-tune label positioning.
-  [ldir='E'] { shield-text-dx: 6; }
-  [ldir='W'] { shield-text-dx: -6; }
-  [ldir='N'] { shield-text-dy: -5; }
-  [ldir='S'] { shield-text-dy: 6; }
-  [ldir='NE'] { shield-text-dx: 3; shield-text-dy: -3; }
-  [ldir='SE'] { shield-text-dx: 3; shield-text-dy: 3; }
-  [ldir='SW'] { shield-text-dx: -3; shield-text-dy: 3; }
-  [ldir='NW'] { shield-text-dx: -3; shield-text-dy: -3; }
-
   [zoom>=6] { shield-size: 14; }
 
   // Emphasize major cities.
-  [scalerank<=6] { shield-size: 14; }
-  [zoom>=6][scalerank<=6] { shield-size: 16; } 
+  [rank<=6] { shield-size: 14; }
+  [zoom>=6][rank<=6] { shield-size: 16; } 
 }
 
 // Gradually replace shields with regular text labels.
-#place_label[type='city'][localrank=1][zoom>=9] {
-  text-name: @name;
+#place[class='city'][rank<=4][zoom>=9] {
+  text-name: '[name_en]';
   text-face-name: @sans;
   text-size: 14;
   text-fill: @text;
@@ -160,20 +130,20 @@
   text-halo-radius: 1;
   text-min-distance: 4;
   text-wrap-width: 80;
-  [scalerank<=3] { 
+  [rank<=3] { 
     text-fill: @text;
     text-size: 20;
   } 
 }
 
 // Mid priority place labels //
-#place_label[type='town'][localrank<=1][zoom>=10],
-#place_label[type='village'][localrank<=1][zoom>=12],
-#place_label[type='hamlet'][localrank<=1][zoom>=13],
-#place_label[type='town'][localrank<=1][zoom>=14],
-#place_label[type='village'][localrank=1][zoom>=14],
-#place_label[type='hamlet'][localrank<=1][zoom>=14] { 
-  text-name: @name;
+#place[class='town'][rank<=15][zoom>=10],
+#place[class='village'][rank<=15][zoom>=12],
+#place[class='hamlet'][rank<=15][zoom>=13],
+#place[class='town'][rank<=15][zoom>=14],
+#place[class='village'][rank<=15][zoom>=14],
+#place[class='hamlet'][rank<=15][zoom>=14] { 
+  text-name: '[name_en]';
   text-face-name: @sans;
   text-size: 13;
   text-fill: @text;
@@ -188,10 +158,10 @@
 }
 
 // Low priority place labels //
-#place_label[type='suburb'][localrank<=1][zoom>=12],
-#place_label[type='neighbourhood'][localrank<=1][zoom>=13],
-#place_label[type='suburb'][localrank=1][zoom>=14],
-#place_label[type='neighbourhood'][localrank=1][zoom>=15] { 
+#place[class='suburb'][rank<=15][zoom>=12],
+#place[class='neighbourhood'][rank<=15][zoom>=13],
+#place[class='suburb'][rank<=15][zoom>=14],
+#place[class='neighbourhood'][rank<=15][zoom>=15] { 
   text-name: @name;
   text-face-name: @sans;
   text-size: 14;
@@ -217,53 +187,6 @@
   [zoom>=17] { text-size: 11;}
 }
 
-// Water labels
-
-#marine_label[zoom>=2]["mapnik::geometry_type"=1],
-#marine_label[zoom>=2]["mapnik::geometry_type"=2] {
-  text-name: @name;
-  text-face-name: @sans;
-  text-fill: @text;
-  text-halo-fill: @water;
-  text-halo-radius: 1;
-  ["mapnik::geometry_type"=1] {
-    text-placement: point;
-    text-wrap-width: 30;
-  }
-  ["mapnik::geometry_type"=2] {
-    text-placement: line;
-  }
-  [labelrank=1][zoom>=2],
-  [labelrank=2][zoom>=3],
-  [labelrank=3][zoom>=4],
-  [labelrank=4][zoom>=5],
-  [labelrank=5][zoom>=6],
-  [labelrank=6][zoom>=7] {
-    text-size: 11;
-    text-character-spacing: 1;
-  }
-  [labelrank=1][zoom>=3],
-  [labelrank=2][zoom>=4],
-  [labelrank=3][zoom>=5],
-  [labelrank=4][zoom>=6],
-  [labelrank=5][zoom>=7],
-  [labelrank=6][zoom>=8] {
-    text-size: 12;
-    text-character-spacing: 2;
-  }
-  [labelrank=1][zoom>=4],
-  [labelrank=2][zoom>=5],
-  [labelrank=3][zoom>=6] {
-    text-size: 14;
-    text-character-spacing: 4;
-  }
-  [labelrank=1][zoom>=5],
-  [labelrank=2][zoom>=6],
-  [labelrank=3][zoom>=7] {
-    text-size: 16;
-    text-character-spacing: 8;
-  }
-}
 
 #water_label {
   [zoom<=13],
@@ -282,9 +205,9 @@
   }
 }
 
-#waterway_label[type='river'][zoom>=13],
-#waterway_label[type='canal'][zoom>=14],
-#waterway_label[type='stream'][zoom>=15] { 
+#waterway[class='river'][name!=null][zoom>=13],
+#waterway[class='canal'][name!=null][zoom>=14],
+#waterway[class='stream'][name!=null][zoom>=15] { 
   text-name: @name;
   text-face-name: @sans_bold;
   text-fill: @text;
@@ -298,12 +221,12 @@
 }
 
 // Place labels
-#poi_label[maki='park'][scalerank<=2],
-#poi_label[maki='airport'][scalerank<=2],
-#poi_label[maki='airfield'][scalerank<=2],
-#poi_label[maki='rail'][scalerank<=2],
-#poi_label[maki='school'][scalerank<=2],
-#poi_label[scalerank='hospital'][scalerank<=2] { 
+#poi[class='park'][rank<=2],
+#poi[class='airport'][rank<=2],
+#poi[class='airfield'][rank<=2],
+#poi[class='rail'][rank<=2],
+#poi[class='school'][rank<=2],
+#poi[class='hospital'][rank<=2] { 
   text-face-name: @sans_bold;
   text-allow-overlap: false;
   text-name: @name;
